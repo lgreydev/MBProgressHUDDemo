@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
 
-        let layout = UICollectionViewLayout()
+        let layout = UICollectionViewFlowLayout()
         let controller = HudsController(collectionViewLayout: layout)
         let navController = UINavigationController(rootViewController: controller)
 

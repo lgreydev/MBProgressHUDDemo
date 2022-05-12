@@ -9,27 +9,23 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class HudsController: UICollectionViewController {
+class HudsController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.register(HubCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
-//        collectionView.backgroundColor = .purple
-
-        navigationItem.title = "Hello"
-        navigationController?.navigationBar.backgroundColor = .red
-
+        navigationItem.title = "Huds"
     }
+}
 
-    // MARK: UICollectionViewDataSource
-
+// MARK: - DataSource
+extension HudsController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
@@ -37,10 +33,12 @@ class HudsController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
-        // Configure the cell
-    
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! HubCell
+
         return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 50)
     }
 }
