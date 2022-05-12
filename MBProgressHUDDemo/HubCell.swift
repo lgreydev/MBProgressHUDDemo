@@ -19,7 +19,6 @@ class HubCell: UICollectionViewCell {
         super.init(frame: frame)
         backgroundColor = .magenta
         setupView()
-
     }
 
     required init?(coder: NSCoder) {
