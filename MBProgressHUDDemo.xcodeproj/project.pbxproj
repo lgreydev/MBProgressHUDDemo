@@ -13,6 +13,7 @@
 		5ED476DE282BF7C7005CCC2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5ED476DD282BF7C7005CCC2F /* Assets.xcassets */; };
 		5ED476E1282BF7C7005CCC2F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5ED476DF282BF7C7005CCC2F /* LaunchScreen.storyboard */; };
 		5ED476EA282BFCEE005CCC2F /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 5ED476E9282BFCEE005CCC2F /* MBProgressHUD */; };
+		5ED476EC282D0EFA005CCC2F /* HudsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED476EB282D0EFA005CCC2F /* HudsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		5ED476DD282BF7C7005CCC2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5ED476E0282BF7C7005CCC2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5ED476E2282BF7C7005CCC2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5ED476EB282D0EFA005CCC2F /* HudsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HudsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				5ED476DD282BF7C7005CCC2F /* Assets.xcassets */,
 				5ED476DF282BF7C7005CCC2F /* LaunchScreen.storyboard */,
 				5ED476E2282BF7C7005CCC2F /* Info.plist */,
+				5ED476EB282D0EFA005CCC2F /* HudsController.swift */,
 			);
 			path = MBProgressHUDDemo;
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 				5ED476D9282BF7C5005CCC2F /* ViewController.swift in Sources */,
 				5ED476D5282BF7C5005CCC2F /* AppDelegate.swift in Sources */,
 				5ED476D7282BF7C5005CCC2F /* SceneDelegate.swift in Sources */,
+				5ED476EC282D0EFA005CCC2F /* HudsController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
