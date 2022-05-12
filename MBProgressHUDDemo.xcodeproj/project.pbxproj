@@ -14,6 +14,7 @@
 		5ED476EA282BFCEE005CCC2F /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 5ED476E9282BFCEE005CCC2F /* MBProgressHUD */; };
 		5ED476EC282D0EFA005CCC2F /* HudsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED476EB282D0EFA005CCC2F /* HudsController.swift */; };
 		5ED476EE282D21A0005CCC2F /* HubCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED476ED282D21A0005CCC2F /* HubCell.swift */; };
+		5ED476F4282D25F0005CCC2F /* TinyConstraints in Frameworks */ = {isa = PBXBuildFile; productRef = 5ED476F3282D25F0005CCC2F /* TinyConstraints */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5ED476EA282BFCEE005CCC2F /* MBProgressHUD in Frameworks */,
+				5ED476F4282D25F0005CCC2F /* TinyConstraints in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +89,7 @@
 			name = MBProgressHUDDemo;
 			packageProductDependencies = (
 				5ED476E9282BFCEE005CCC2F /* MBProgressHUD */,
+				5ED476F3282D25F0005CCC2F /* TinyConstraints */,
 			);
 			productName = MBProgressHUDDemo;
 			productReference = 5ED476D1282BF7C5005CCC2F /* MBProgressHUDDemo.app */;
@@ -118,6 +121,7 @@
 			mainGroup = 5ED476C8282BF7C5005CCC2F;
 			packageReferences = (
 				5ED476E8282BFCEE005CCC2F /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
+				5ED476F2282D25F0005CCC2F /* XCRemoteSwiftPackageReference "TinyConstraints" */,
 			);
 			productRefGroup = 5ED476D2282BF7C5005CCC2F /* Products */;
 			projectDirPath = "";
@@ -366,6 +370,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		5ED476F2282D25F0005CCC2F /* XCRemoteSwiftPackageReference "TinyConstraints" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roberthein/TinyConstraints";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -373,6 +385,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5ED476E8282BFCEE005CCC2F /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
 			productName = MBProgressHUD;
+		};
+		5ED476F3282D25F0005CCC2F /* TinyConstraints */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5ED476F2282D25F0005CCC2F /* XCRemoteSwiftPackageReference "TinyConstraints" */;
+			productName = TinyConstraints;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
