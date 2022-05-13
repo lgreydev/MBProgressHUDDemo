@@ -43,7 +43,7 @@ extension Hud {
         case .indeterminateExample:
             indeterminateExample(to: view)
         case .labelExample:
-            labelExample()
+            labelExample(to: view)
         case .detailsLabelExample:
             detailsLabelExample()
         case .determinateExample:
@@ -85,8 +85,16 @@ extension Hud {
         }
     }
 
-    private func labelExample() {
-        print(#function)
+    private func labelExample(to view: UIView) {
+        let hub = MBProgressHUD.showAdded(to: view, animated: true)
+        hub.label.text = "Loading..."
+
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.doSomething()
+            DispatchQueue.main.async {
+                hub.hide(animated: true)
+            }
+        }
     }
 
     private func detailsLabelExample() {
