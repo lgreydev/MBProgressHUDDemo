@@ -5,7 +5,8 @@
 //  Created by Sergey Lukaschuk on 12.05.2022.
 //
 
-import Foundation
+import UIKit
+import MBProgressHUD
 
 class Hud {
 
@@ -37,10 +38,10 @@ class Hud {
 }
 
 extension Hud {
-    func runHub(action: HudAction) {
+    func runHub(action: HudAction, view: UIView) {
         switch action {
         case .indeterminateExample:
-            indeterminateExample()
+            indeterminateExample(to: view)
         case .labelExample:
             labelExample()
         case .detailsLabelExample:
@@ -72,8 +73,16 @@ extension Hud {
         }
     }
 
-    private func indeterminateExample() {
-        print(#function)
+    private func indeterminateExample(to view: UIView) {
+        let hub = MBProgressHUD.showAdded(to: view, animated: true)
+        hub.mode = .indeterminate
+
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.doSomething()
+            DispatchQueue.main.async {
+                hub.hide(animated: true)
+            }
+        }
     }
 
     private func labelExample() {
@@ -130,5 +139,9 @@ extension Hud {
 
     private func colorExample() {
         print(#function)
+    }
+
+    private func doSomething() {
+        sleep(5)
     }
 }
