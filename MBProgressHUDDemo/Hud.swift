@@ -88,6 +88,7 @@ extension Hud {
     private func labelExample(to view: UIView) {
         let hub = MBProgressHUD.showAdded(to: view, animated: true)
         hub.label.text = "Loading..."
+        hub.detailsLabel.text = "\(0)"
 
         DispatchQueue.global(qos: .background).async { [weak self] in
             self?.doSomething()
@@ -121,7 +122,6 @@ extension Hud {
                 hub.hide(animated: true)
             }
         }
-
     }
 
     private func annularDeterminateExample() {
@@ -175,9 +175,12 @@ extension Hud {
     private func doSomethingWithProgress(in hub: MBProgressHUD) {
         var progress: Float = 0.0
         while progress < 1.0 {
-            progress += 0.01
+            progress += 0.02
             DispatchQueue.main.async {
                 hub.progress = progress
+                if progress < 1.0 {
+                    hub.detailsLabel.text = "\(Int(round(progress * 100))) %"
+                }
             }
             usleep(10000)
         }
