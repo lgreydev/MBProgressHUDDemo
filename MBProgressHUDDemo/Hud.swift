@@ -45,7 +45,7 @@ extension Hud {
         case .labelExample:
             labelExample(to: view)
         case .detailsLabelExample:
-            detailsLabelExample()
+            detailsLabelExample(to: view)
         case .determinateExample:
             determinateExample()
         case .annularDeterminateExample:
@@ -97,8 +97,17 @@ extension Hud {
         }
     }
 
-    private func detailsLabelExample() {
-        print(#function)
+    private func detailsLabelExample(to view: UIView) {
+        let hub = MBProgressHUD.showAdded(to: view, animated: true)
+        hub.label.text = "Loading..."
+        hub.detailsLabel.text = "Please, waiting!"
+
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.doSomething()
+            DispatchQueue.main.async {
+                hub.hide(animated: true)
+            }
+        }
     }
 
     private func determinateExample() {
