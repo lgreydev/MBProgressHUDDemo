@@ -47,7 +47,7 @@ extension Hud {
         case .detailsLabelExample:
             detailsLabelExample(to: view)
         case .determinateExample:
-            determinateExample()
+            determinateExample(to: view)
         case .annularDeterminateExample:
             annularDeterminateExample()
         case .barDeterminateExample:
@@ -110,8 +110,18 @@ extension Hud {
         }
     }
 
-    private func determinateExample() {
-        print(#function)
+    private func determinateExample(to view: UIView) {
+        let hub = MBProgressHUD.showAdded(to: view, animated: true)
+        hub.mode = .determinate
+        hub.label.text = "Loading..."
+
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.doSomethingWithProgress(in: hub)
+            DispatchQueue.main.async {
+                hub.hide(animated: true)
+            }
+        }
+
     }
 
     private func annularDeterminateExample() {
@@ -160,5 +170,16 @@ extension Hud {
 
     private func doSomething() {
         sleep(5)
+    }
+
+    private func doSomethingWithProgress(in hub: MBProgressHUD) {
+        var progress: Float = 0.0
+        while progress < 1.0 {
+            progress += 0.01
+            DispatchQueue.main.async {
+                hub.progress = progress
+            }
+            usleep(10000)
+        }
     }
 }
