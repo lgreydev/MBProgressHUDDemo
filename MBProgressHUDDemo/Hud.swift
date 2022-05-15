@@ -49,9 +49,9 @@ extension Hud {
         case .determinateExample:
             determinateExample(to: view)
         case .annularDeterminateExample:
-            annularDeterminateExample()
+            annularDeterminateExample(to: view)
         case .barDeterminateExample:
-            barDeterminateExample()
+            barDeterminateExample(to: view)
         case .textExample:
             textExample()
         case .customViewExample:
@@ -88,7 +88,6 @@ extension Hud {
     private func labelExample(to view: UIView) {
         let hub = MBProgressHUD.showAdded(to: view, animated: true)
         hub.label.text = "Loading..."
-        hub.detailsLabel.text = "\(0)"
 
         DispatchQueue.global(qos: .background).async { [weak self] in
             self?.doSomething()
@@ -124,12 +123,30 @@ extension Hud {
         }
     }
 
-    private func annularDeterminateExample() {
-        print(#function)
+    private func annularDeterminateExample(to view: UIView) {
+        let hub = MBProgressHUD.showAdded(to: view, animated: true)
+        hub.mode = .annularDeterminate
+        hub.label.text = "Loading..."
+
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.doSomethingWithProgress(in: hub)
+            DispatchQueue.main.async {
+                hub.hide(animated: true)
+            }
+        }
     }
 
-    private func barDeterminateExample() {
-        print(#function)
+    private func barDeterminateExample(to view: UIView) {
+        let hub = MBProgressHUD.showAdded(to: view, animated: true)
+        hub.mode = .determinateHorizontalBar
+        hub.label.text = "Loading..."
+
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.doSomethingWithProgress(in: hub)
+            DispatchQueue.main.async {
+                hub.hide(animated: true)
+            }
+        }
     }
 
     private func textExample() {
