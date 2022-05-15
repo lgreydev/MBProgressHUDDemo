@@ -55,7 +55,7 @@ extension Hud {
         case .textExample:
             textExample(to: view)
         case .customViewExample:
-            customViewExample()
+            customViewExample(to: view)
         case .cancelationExample:
             cancelationExample()
         case .modeSwitchingExample:
@@ -157,8 +157,17 @@ extension Hud {
         hub.hide(animated: true, afterDelay: 3)
     }
 
-    private func customViewExample() {
-        print(#function)
+    private func customViewExample(to view: UIView) {
+        let hub = MBProgressHUD.showAdded(to: view, animated: true)
+        hub.mode = .customView
+        hub.label.text = "Success"
+
+        let image = UIImage(systemName: "checkmark")
+        hub.customView = UIImageView(image: image)
+        hub.customView?.size(CGSize(width: 50, height: 50))
+        hub.customView?.tintColor = .black
+
+        hub.hide(animated: true, afterDelay: 1)
     }
 
     private func cancelationExample() {
