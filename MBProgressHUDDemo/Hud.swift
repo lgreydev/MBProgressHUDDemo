@@ -53,7 +53,7 @@ extension Hud {
         case .barDeterminateExample:
             barDeterminateExample(to: view)
         case .textExample:
-            textExample()
+            textExample(to: view)
         case .customViewExample:
             customViewExample()
         case .cancelationExample:
@@ -149,8 +149,12 @@ extension Hud {
         }
     }
 
-    private func textExample() {
-        print(#function)
+    private func textExample(to view: UIView) {
+        let hub = MBProgressHUD.showAdded(to: view, animated: true)
+        hub.mode = .text
+        hub.label.text = "Message here"
+        hub.offset = CGPoint(x: 0, y: MBProgressMaxOffset)
+        hub.hide(animated: true, afterDelay: 3)
     }
 
     private func customViewExample() {
