@@ -13,6 +13,8 @@ class Hud {
     let title: String
     let action: HudAction
 
+    private var isCancel = false
+
     enum HudAction {
         case indeterminateExample
         case labelExample
@@ -57,7 +59,7 @@ extension Hud {
         case .customViewExample:
             customViewExample(to: view)
         case .cancelationExample:
-            cancelationExample()
+            cancelationExample(to: view)
         case .modeSwitchingExample:
             modeSwitchingExample()
         case .windowExample:
@@ -170,8 +172,19 @@ extension Hud {
         hub.hide(animated: true, afterDelay: 1)
     }
 
-    private func cancelationExample() {
-        print(#function)
+    private func cancelationExample(to view: UIView) {
+        let hub = MBProgressHUD.showAdded(to: view, animated: true)
+        hub.mode = .determinate
+        hub.label.text = "Loading...."
+        hub.button.setTitle("Cancel", for: .normal)
+        hub.button.addTarget(self, action: #selector(cancelTap), for: .touchUpInside)
+
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.doSomethingWithProgress(in: hub)
+            DispatchQueue.main.async {
+                hub.hide(animated: true)
+            }
+        }
     }
 
     private func modeSwitchingExample() {
@@ -203,8 +216,10 @@ extension Hud {
     }
 
     private func doSomethingWithProgress(in hub: MBProgressHUD) {
+        isCancel = false
         var progress: Float = 0.0
         while progress < 1.0 {
+            if isCancel { return }
             progress += 0.02
             DispatchQueue.main.async {
                 hub.progress = progress
@@ -214,5 +229,9 @@ extension Hud {
             }
             usleep(10000)
         }
+    }
+
+    @objc private func cancelTap() {
+        isCancel = true
     }
 }

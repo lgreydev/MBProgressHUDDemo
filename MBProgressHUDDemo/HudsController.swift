@@ -12,6 +12,9 @@ private let reuseIdentifier = "Cell"
 class HudsController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     let hud00 = Hud(title: "Indeterminate mode", action: .indeterminateExample)
+
+
+    
     let hud01 = Hud(title: "With label", action: .labelExample)
     let hud02 = Hud(title: "With details label", action: .detailsLabelExample)
     let hud10 = Hud(title: "Determinate mode", action: .determinateExample)
