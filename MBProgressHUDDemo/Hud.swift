@@ -61,7 +61,7 @@ extension Hud {
         case .cancelationExample:
             cancelationExample(to: view)
         case .modeSwitchingExample:
-            modeSwitchingExample()
+            modeSwitchingExample(to: view)
         case .windowExample:
             windowExample()
         case .networkingExample:
@@ -187,8 +187,17 @@ extension Hud {
         }
     }
 
-    private func modeSwitchingExample() {
-        print(#function)
+    private func modeSwitchingExample(to view: UIView) {
+        let hub = MBProgressHUD.showAdded(to: view, animated: true)
+        hub.mode = .indeterminate
+        hub.label.text = "Preparing..."
+
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.doSomethingWithMixedProgress(in: hub)
+            DispatchQueue.main.async {
+                hub.hide(animated: true)
+            }
+        }
     }
 
     private func windowExample() {
@@ -229,6 +238,47 @@ extension Hud {
             }
             usleep(10000)
         }
+    }
+
+    private func doSomethingWithMixedProgress(in hub: MBProgressHUD) {
+        sleep(2)
+
+        DispatchQueue.main.async {
+            hub.mode = .determinate
+            hub.label.text = "Loading..."
+        }
+
+        var progress: Float = 0.0
+        while progress < 1.0 {
+            progress += 0.02
+            DispatchQueue.main.async {
+                hub.progress = progress
+                if progress < 1.0 {
+                    hub.detailsLabel.text = "\(Int(round(progress * 100))) %"
+                }
+            }
+            usleep(10000)
+        }
+
+        DispatchQueue.main.async {
+            hub.mode = .indeterminate
+            hub.label.text = "Cleaning up..."
+        }
+
+        sleep(2)
+
+        DispatchQueue.main.async {
+            hub.mode = .customView
+            hub.label.text = "Success"
+
+            let image = UIImage(systemName: "checkmark")
+            hub.customView = UIImageView(image: image)
+            hub.customView?.size(CGSize(width: 50, height: 50))
+            hub.customView?.tintColor = .black
+
+            hub.hide(animated: true, afterDelay: 1)
+        }
+        sleep(3)
     }
 
     @objc private func cancelTap() {
