@@ -40,7 +40,7 @@ class Hud {
 }
 
 extension Hud {
-    func runHub(action: HudAction, view: UIView) {
+    func runHub(action: HudAction, view: UIView, onWindow: UIWindow) {
         switch action {
         case .indeterminateExample:
             indeterminateExample(to: view)
@@ -63,7 +63,7 @@ extension Hud {
         case .modeSwitchingExample:
             modeSwitchingExample(to: view)
         case .windowExample:
-            windowExample()
+            windowExample(onWindow: onWindow)
         case .networkingExample:
             networkingExample()
         case .determinateNSProgressExample:
@@ -200,8 +200,16 @@ extension Hud {
         }
     }
 
-    private func windowExample() {
-        print(#function)
+    private func windowExample(onWindow: UIWindow) {
+        let hub = MBProgressHUD.showAdded(to: onWindow, animated: true)
+        hub.mode = .indeterminate
+
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.doSomething()
+            DispatchQueue.main.async {
+                hub.hide(animated: true)
+            }
+        }
     }
 
     private func networkingExample() {

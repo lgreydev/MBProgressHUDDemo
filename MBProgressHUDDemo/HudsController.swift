@@ -67,8 +67,10 @@ extension HudsController {
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let view = navigationController?.view else { fatalError() }
+        guard let window = view.window else { fatalError() }
+
         let action = huds[indexPath.section][indexPath.row].action
-        huds[indexPath.section][indexPath.row].runHub(action: action, view: view)
+        huds[indexPath.section][indexPath.row].runHub(action: action, view: view, onWindow: window)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
