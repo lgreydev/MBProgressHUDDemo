@@ -291,7 +291,6 @@ extension Hud {
         sleep(3)
     }
 
-
     private func doSomeNetworkWorkWithProgress(in hub: MBProgressHUD) {
         let session = URLSession(configuration: .default)
         guard let url = URL(string: "https://www.apple.com/newsroom/images/product/iphone/standard/Images-of-WWDC22-iOS16.zip") else {
@@ -328,7 +327,6 @@ extension Hud {
 
         task.resume()
     }
-
 
     @objc private func cancelTap() {
         isCancel = true
