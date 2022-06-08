@@ -65,7 +65,7 @@ extension Hud {
         case .windowExample:
             windowExample(onWindow: onWindow)
         case .networkingExample:
-            networkingExample()
+            networkingExample(to: view)
         case .determinateNSProgressExample:
             determinateNSProgressExample()
         case .dimBackgroundExample:
@@ -212,8 +212,10 @@ extension Hud {
         }
     }
 
-    private func networkingExample() {
-        print(#function)
+    private func networkingExample(to view: UIView) {
+        let hub = MBProgressHUD.showAdded(to: view, animated: true)
+        hub.label.text = "Downloading..."
+        doSomeNetworkWorkWithProgress(in: hub)
     }
 
     private func determinateNSProgressExample() {
@@ -288,6 +290,45 @@ extension Hud {
         }
         sleep(3)
     }
+
+
+    private func doSomeNetworkWorkWithProgress(in hub: MBProgressHUD) {
+        let session = URLSession(configuration: .default)
+        guard let url = URL(string: "https://www.apple.com/newsroom/images/product/iphone/standard/Images-of-WWDC22-iOS16.zip") else {
+            DispatchQueue.main.async {
+                hub.mode = .text
+                hub.label.text = "Network Error"
+                hub.detailsLabel.text = "Please, check your internet connection and try later."
+                hub.hide(animated: true, afterDelay: 3)
+            }
+            return
+        }
+
+        let task = session.downloadTask(with: url) { url, response, error in
+            if error != nil {
+                print(error ?? "error \(error.debugDescription)")
+                DispatchQueue.main.async {
+                    hub.mode = .text
+                    hub.label.text = "Network Error"
+                    hub.detailsLabel.text = "Please, check your internet connection and try later."
+                    hub.hide(animated: true, afterDelay: 3)
+                }
+                return
+            }
+        }
+
+        DispatchQueue.main.async {
+            hub.mode = .customView
+            hub.label.text = "Done"
+            let image = UIImage(systemName: "checkmark")
+            hub.customView = UIImageView(image: image)
+            hub.isSquare = true
+            hub.hide(animated: true, afterDelay: 3)
+        }
+
+        task.resume()
+    }
+
 
     @objc private func cancelTap() {
         isCancel = true
